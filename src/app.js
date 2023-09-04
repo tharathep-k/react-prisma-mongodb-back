@@ -9,8 +9,8 @@ const authroute = require("./routes/auth-route")
 const app = express();
 
 app.use(cors());
-app.use(helmet())
 
+app.use(helmet())
 app.use(express.json());
 
 app.use("/auth", authroute)

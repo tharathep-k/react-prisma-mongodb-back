@@ -37,14 +37,20 @@ exports.login = async (req, res, next) => {
       );
 
       if (!isCorrect) {
+        console.log("login false");
         return res.status(400).json("invalid credential");
       }
       const accessToken = tokenService.sign({ id: user.id });
-      res.status(200).json(accessToken);
+      console.log({ accessToken });
+      res.status(200).json({ accessToken });
     }
 
-    res.status(200).json(data);
+    // res.status(200).json(data);
   } catch (error) {
     next(error);
   }
+};
+
+exports.getUser = (req, res, next) => {
+  res.status(200).json({ user: req.user });
 };
