@@ -39,6 +39,24 @@ exports.editUser = async (req, res, next) => {
         password: data.password,
       },
     });
+    // console.log(newData);
+
+    res.status(200).json(newData);
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.searchUserByEmail = async (req, res, next) => {
+  try {
+    const { value } = req.query;
+    console.log(value);
+    newValue = value.toLowerCase();
+
+    const newData = await prisma.users.findMany({
+      where: { email: { startsWith: newValue } },
+    });
+
     console.log(newData);
 
     res.status(200).json(newData);
