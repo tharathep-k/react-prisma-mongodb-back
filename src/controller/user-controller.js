@@ -18,7 +18,7 @@ exports.getUserdata = async (req, res, next) => {
 exports.deleteUser = async (req, res, next) => {
   try {
     const id = req.query;
-    console.log(id);
+    // console.log(id);
     await prisma.users.delete({ where: { id: id.id } });
 
     res.status(200).json("Delete Complete");
@@ -50,14 +50,14 @@ exports.editUser = async (req, res, next) => {
 exports.searchUserByEmail = async (req, res, next) => {
   try {
     const { value } = req.query;
-    console.log(value);
+    // console.log(value);
     newValue = value.toLowerCase();
 
     const newData = await prisma.users.findMany({
       where: { email: { startsWith: newValue } },
     });
 
-    console.log(newData);
+    // console.log(newData);
 
     res.status(200).json(newData);
   } catch (error) {

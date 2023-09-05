@@ -9,7 +9,7 @@ const { validateLogin } = require("../validator/auth-validate");
 exports.register = async (req, res, next) => {
   try {
     const data = req.body;
-    console.log(data);
+    // console.log(data);
     data.password = await bcryptService.hash(data.password);
 
     await prisma.users.create({ data: data });
@@ -23,12 +23,12 @@ exports.register = async (req, res, next) => {
 exports.login = async (req, res, next) => {
   try {
     const data = validateLogin(req.body);
-    console.log(data);
+    // console.log(data);
 
     const [user] = await prisma.users.findMany({
       where: { email: data.email },
     });
-    console.log(user);
+    // console.log(user);
 
     if (user) {
       const isCorrect = await bcryptService.compare(
@@ -41,7 +41,7 @@ exports.login = async (req, res, next) => {
         return res.status(400).json("invalid credential");
       }
       const accessToken = tokenService.sign({ id: user.id });
-      console.log({ accessToken });
+      // console.log({ accessToken });
       res.status(200).json({ accessToken });
     }
 
